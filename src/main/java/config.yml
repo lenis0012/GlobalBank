@@ -1,0 +1,10 @@
+Economy:
+  CostPerSlot: 20
+  UseEconomy: true
+  ProgressiveSlotMultiplier: 2
+Slot:
+  BeginWith: 5
+Strings:
+  Open: "Welcome to"
+  Closed: "Have a great day!"
+  Noperm: "You do not have permission to use banks!"
