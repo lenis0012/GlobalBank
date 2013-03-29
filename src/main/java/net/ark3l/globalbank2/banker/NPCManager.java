@@ -41,6 +41,7 @@ import org.bukkit.craftbukkit.v1_5_R2.entity.CraftEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -81,6 +82,7 @@ public class NPCManager {
 		}, 1L, 1L);
 		Bukkit.getServer().getPluginManager().registerEvents(new SL(), plugin);
 		Bukkit.getServer().getPluginManager().registerEvents(new WL(), plugin);
+		Bukkit.getServer().getPluginManager().registerEvents(new EL(), plugin);
 	}
 
 	private WorldServer getWorldServer(World world) {
@@ -111,6 +113,15 @@ public class NPCManager {
 			}
 		}
 	}
+	
+	private class EL implements Listener {
+		@EventHandler
+		public void onEntityDamage(EntityDamageEvent event) {
+			if(isNPC(event.getEntity())) {
+				event.setCancelled(true);
+			}
+		}
+	}
 
 	public Banker spawnBanker(Location l, String bankName) {
 		String name = "Banker ";
@@ -135,7 +146,7 @@ public class NPCManager {
 				name = tmp;
 			}
 			WorldServer ws = getWorldServer(l.getWorld());
-			NPCEntity npcEntity = new NPCEntity(this, ws, name, new PlayerInteractManager(ws));
+			NPCEntity npcEntity = new NPCEntity(this, ws, name, new PlayerInteractManager((net.minecraft.server.v1_5_R2.World) ws));
 			npcEntity.setPositionRotation(l.getX(), l.getY(), l.getZ(), l.getYaw(), l.getPitch());
 			ws.addEntity(npcEntity); //the right way
 			Banker npc = new Banker(npcEntity, bankName);
