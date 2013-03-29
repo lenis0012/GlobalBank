@@ -21,7 +21,7 @@ package net.ark3l.globalbank2.listeners;
 import net.ark3l.globalbank2.GlobalBank;
 import net.ark3l.globalbank2.banker.entity.Banker;
 import net.ark3l.globalbank2.util.SqliteDB;
-import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.v1_5_R2.EntityPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

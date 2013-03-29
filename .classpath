@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Lenny/Desktop/minecraft elitecraft/LIB/craftbukkit.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lenny/Desktop/minecraft elitecraft/LIB/SpoutPlugin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lenny/Desktop/minecraft elitecraft/LIB/Vault.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

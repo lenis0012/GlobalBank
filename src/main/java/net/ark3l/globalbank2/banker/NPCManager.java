@@ -26,18 +26,18 @@ import net.ark3l.globalbank2.banker.entity.Banker;
 import net.ark3l.globalbank2.banker.nms.NPCEntity;
 import net.ark3l.globalbank2.banker.nms.NPCNetworkManager;
 import net.ark3l.globalbank2.util.Log;
-import net.minecraft.server.Entity;
-import net.minecraft.server.ItemInWorldManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.WorldServer;
+import net.minecraft.server.v1_5_R2.Entity;
+import net.minecraft.server.v1_5_R2.PlayerInteractManager;
+import net.minecraft.server.v1_5_R2.MinecraftServer;
+import net.minecraft.server.v1_5_R2.WorldServer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.CraftServer;
-import org.bukkit.craftbukkit.CraftWorld;
-import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_5_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -69,7 +69,7 @@ public class NPCManager {
 				HashSet<String> toRemove = new HashSet<String>();
 				for (String i : bankers.keySet()) {
 					Entity j = bankers.get(i).getEntity();
-					j.z();
+					j.x();
 					if (j.dead) {
 						toRemove.add(i);
 					}
@@ -135,7 +135,7 @@ public class NPCManager {
 				name = tmp;
 			}
 			WorldServer ws = getWorldServer(l.getWorld());
-			NPCEntity npcEntity = new NPCEntity(this, ws, name, new ItemInWorldManager(ws));
+			NPCEntity npcEntity = new NPCEntity(this, ws, name, new PlayerInteractManager(ws));
 			npcEntity.setPositionRotation(l.getX(), l.getY(), l.getZ(), l.getYaw(), l.getPitch());
 			ws.addEntity(npcEntity); //the right way
 			Banker npc = new Banker(npcEntity, bankName);

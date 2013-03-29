@@ -1,0 +1,12 @@
+name: GlobalBank2
+main: net.ark3l.globalbank2.GlobalBank
+description: Adds a unique item banking system to the game.
+authors: [Arkel, Samkio]
+website: http://dev.bukkit.org/server-mods/globalbank2/
+version: 1.1.3
+softdepend: [Vault, Spout]
+commands:
+  gb:
+    description: GlobalBank Commands
+    usage: GlobalBank Commands
+

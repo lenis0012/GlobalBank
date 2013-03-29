@@ -19,16 +19,16 @@ package net.ark3l.globalbank2.banker.entity;
    */
 
 import net.ark3l.globalbank2.banker.nms.NPCEntity;
-import net.minecraft.server.Entity;
-import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.v1_5_R2.Entity;
+import net.minecraft.server.v1_5_R2.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.v1_5_R2.CraftServer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
-import org.getspout.spout.player.SpoutCraftPlayer;
+//import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class Banker {
@@ -46,9 +46,9 @@ public class Banker {
 		try {
 			Class.forName("org.getspout.spout.Spout");
 
-			if (!(getEntity().getBukkitEntity() instanceof SpoutCraftPlayer)) {
+			/*if (!(getEntity().getBukkitEntity() instanceof SpoutCraftPlayer)) {
 				((NPCEntity) getEntity()).setBukkitEntity(new SpoutCraftPlayer((CraftServer) Bukkit.getServer(), (EntityPlayer) getEntity()));
-			}
+			}*/
 
 			return (SpoutPlayer) getEntity().getBukkitEntity();
 		} catch (ClassNotFoundException e) {
@@ -99,6 +99,6 @@ public class Banker {
 
 	public void setYaw(float yaw) {
 		getEntity().yaw = yaw;
-		((EntityPlayer)getEntity()).as = yaw;
+		((EntityPlayer)getEntity()).az = yaw;
 	}
 }

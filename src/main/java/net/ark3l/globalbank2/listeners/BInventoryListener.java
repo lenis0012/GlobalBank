@@ -25,10 +25,10 @@ import net.ark3l.globalbank2.PlayerState;
 import net.ark3l.globalbank2.PlayerState.PlayerStatus;
 import net.ark3l.globalbank2.delayedTasks.InventoryClose;
 import net.ark3l.globalbank2.methods.SimpleMethods;
-import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.v1_5_R2.EntityPlayer;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

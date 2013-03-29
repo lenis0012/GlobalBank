@@ -1,26 +1,26 @@
 package net.ark3l.globalbank2.banker.nms;
 
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.NetServerHandler;
-import net.minecraft.server.Packet;
-import net.minecraft.server.Packet101CloseWindow;
-import net.minecraft.server.Packet102WindowClick;
-import net.minecraft.server.Packet106Transaction;
-import net.minecraft.server.Packet10Flying;
-import net.minecraft.server.Packet130UpdateSign;
-import net.minecraft.server.Packet14BlockDig;
-import net.minecraft.server.Packet15Place;
-import net.minecraft.server.Packet16BlockItemSwitch;
-import net.minecraft.server.Packet18ArmAnimation;
-import net.minecraft.server.Packet19EntityAction;
-import net.minecraft.server.Packet255KickDisconnect;
-import net.minecraft.server.Packet3Chat;
-import net.minecraft.server.Packet7UseEntity;
-import net.minecraft.server.Packet9Respawn;
+import net.minecraft.server.v1_5_R2.EntityPlayer;
+import net.minecraft.server.v1_5_R2.Packet;
+import net.minecraft.server.v1_5_R2.Packet101CloseWindow;
+import net.minecraft.server.v1_5_R2.Packet102WindowClick;
+import net.minecraft.server.v1_5_R2.Packet106Transaction;
+import net.minecraft.server.v1_5_R2.Packet10Flying;
+import net.minecraft.server.v1_5_R2.Packet130UpdateSign;
+import net.minecraft.server.v1_5_R2.Packet14BlockDig;
+import net.minecraft.server.v1_5_R2.Packet15Place;
+import net.minecraft.server.v1_5_R2.Packet16BlockItemSwitch;
+import net.minecraft.server.v1_5_R2.Packet18ArmAnimation;
+import net.minecraft.server.v1_5_R2.Packet19EntityAction;
+import net.minecraft.server.v1_5_R2.Packet255KickDisconnect;
+import net.minecraft.server.v1_5_R2.Packet3Chat;
+import net.minecraft.server.v1_5_R2.Packet7UseEntity;
+import net.minecraft.server.v1_5_R2.Packet9Respawn;
+import net.minecraft.server.v1_5_R2.PlayerConnection;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.CraftServer;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R2.CraftServer;
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
 
 import net.ark3l.globalbank2.banker.NPCManager;
 
@@ -28,7 +28,7 @@ import net.ark3l.globalbank2.banker.NPCManager;
  * 
  * @author martin
  */
-public class NPCNetHandler extends NetServerHandler {
+public class NPCNetHandler extends PlayerConnection {
 
 	public NPCNetHandler(NPCManager npcManager, EntityPlayer entityplayer) {
 		super(npcManager.getMcServer(), npcManager.getNPCNetworkManager(),
@@ -115,5 +115,4 @@ public class NPCNetHandler extends NetServerHandler {
 	@Override
 	public void a(Packet130UpdateSign packet130updatesign) {
 	}
-
 }

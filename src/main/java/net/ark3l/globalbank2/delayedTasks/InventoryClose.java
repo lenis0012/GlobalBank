@@ -22,9 +22,9 @@ import net.ark3l.globalbank2.GlobalBank;
 import net.ark3l.globalbank2.PlayerState;
 import net.ark3l.globalbank2.PlayerState.PlayerStatus;
 import net.ark3l.globalbank2.methods.SlotDataMethods;
-import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.v1_5_R2.EntityPlayer;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
