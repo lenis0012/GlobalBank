@@ -158,21 +158,42 @@ public class GlobalBank extends JavaPlugin {
 					}
 
 					this.playersDeletingBankers.add(player);
+				
 					player.sendMessage(ChatColor.BLUE + "[GlobalBank2] " + ChatColor.WHITE + "Please punch a Banker to remove them.");
+				} else if (args[0].equalsIgnoreCase("help")) {
+					player.sendMessage(ChatColor.BLUE + "[GlobalBank2]" + ChatColor.WHITE + " ~" + ChatColor.AQUA + " AdminHelpMenu" + ChatColor.WHITE + " ~");
+					player.sendMessage("/gb create [name]" + ChatColor.GOLD + "Creates An NPC");
+					player.sendMessage("/gb delete" + ChatColor.GOLD + "Deletes An NPC");
+					player.sendMessage("/gb face" + ChatColor.GOLD + "Changes Facing of an NPC");
+					player.sendMessage("/gb info" + ChatColor.GOLD + "Show Info on Plugin");
+					
+					
+					if (!player.hasPermission("gb.help")) {
+						player.sendMessage(noPermission);
+						return true;
+					}
+					
+				} else if (args[0].equalsIgnoreCase("info")) {
+					player.sendMessage("Authors: Lenis0012 and horse2950 || Former Authors: Samkio and xTorrent || Tester: xH3LLRA1Z3Rx");	
+				
+					
 				} else if (args[0].equalsIgnoreCase("face")) {
 					if (!player.hasPermission("gb.face")) {
 						player.sendMessage(noPermission);
 						return true;
 					}
-
+					
 					this.playersChangingBankersDirection.add(player);
 					player.sendMessage(ChatColor.BLUE + "[GlobalBank2] " + ChatColor.WHITE + "Please punch a Banker to make them face towards you.");
+
 				} else {
-					player.sendMessage(ChatColor.BLUE + "[GlobalBank2] " + ChatColor.WHITE + "Invalid command. Use " + ChatColor.BLUE + " /gb help " + ChatColor.WHITE + "for help.");
+					player.sendMessage(ChatColor.BLUE + "[GlobalBank2] " + ChatColor.RED + "INVAILD COMMAND" + ChatColor.AQUA + "Type /gb help");
 				}
+				
 			} else {
 				player.sendMessage(ChatColor.BLUE + this.toString());
 			}
+
 			return true;
 		} else {
 			return false;
