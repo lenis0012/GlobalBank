@@ -54,8 +54,8 @@ public class GlobalBank extends JavaPlugin {
 	public final HashMap<Player, ArrayList<ItemStack>> isk = new HashMap<Player, ArrayList<ItemStack>>();
 	public final HashMap<Player, Bankventory> bankventories = new HashMap<Player, Bankventory>();
 
-	public final ArrayList<Player> playersDeletingBankers = new ArrayList<Player>();
-	public final ArrayList<Player> playersChangingBankersDirection = new ArrayList<Player>();
+	public final ArrayList<String> playersDeletingBankers = new ArrayList<String>();
+	public final ArrayList<String> playersChangingBankersDirection = new ArrayList<String>();
 	public final Sort sort = new Sort();
 
 	public Economy economy = null;
@@ -157,7 +157,7 @@ public class GlobalBank extends JavaPlugin {
 						return true;
 					}
 
-					this.playersDeletingBankers.add(player);
+					this.playersDeletingBankers.add(player.getName());
 				
 					player.sendMessage(ChatColor.BLUE + "[GlobalBank2] " + ChatColor.WHITE + "Please punch a Banker to remove them.");
 				} else if (args[0].equalsIgnoreCase("help")) {
@@ -183,7 +183,7 @@ public class GlobalBank extends JavaPlugin {
 						return true;
 					}
 					
-					this.playersChangingBankersDirection.add(player);
+					this.playersChangingBankersDirection.add(player.getName());
 					player.sendMessage(ChatColor.BLUE + "[GlobalBank2] " + ChatColor.WHITE + "Please punch a Banker to make them face towards you.");
 
 				} else {

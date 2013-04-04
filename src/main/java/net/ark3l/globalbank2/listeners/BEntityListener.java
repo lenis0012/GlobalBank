@@ -21,7 +21,6 @@ package net.ark3l.globalbank2.listeners;
 import net.ark3l.globalbank2.GlobalBank;
 import net.ark3l.globalbank2.banker.entity.Banker;
 import net.ark3l.globalbank2.util.SqliteDB;
-import net.minecraft.server.v1_5_R2.EntityPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -47,23 +46,26 @@ public class BEntityListener implements Listener {
 		EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) entityDamageEvent;
 
 		if (b.manager.isNPC(event.getEntity())) {
-			if(!(event.getDamager() instanceof EntityPlayer)) return;
+			if(!(event.getDamager() instanceof Player)) return;
 
 			Player player = (Player)  event.getDamager();
-			if (b.playersDeletingBankers.contains(player)) {
+			if (b.playersDeletingBankers.contains(player.getName())) {
 				Banker banker = b.manager.getBanker(b.manager.getNPCIdFromEntity(event.getEntity()));
 				SqliteDB.delBanker(banker.bankName);
 				b.manager.despawnById(b.manager.getNPCIdFromEntity(banker.getBukkitEntity()));
 				player.sendMessage(ChatColor.BLUE + "[GlobalBank2]"
 						+ ChatColor.WHITE
 						+ " Banker has been removed.");
-				b.playersDeletingBankers.remove(player);
-			} else if(b.playersChangingBankersDirection.contains(player)) {
+				b.playersDeletingBankers.remove(player.getName());
+			} else if(b.playersChangingBankersDirection.contains(player.getName())) {
 				Banker banker = b.manager.getBanker(b.manager.getNPCIdFromEntity(event.getEntity()));
 				banker.turnToFace(player.getLocation());
 				SqliteDB.delBanker(banker.bankName);
-				SqliteDB.newBanker(banker.bankName, banker.getBukkitEntity().getLocation());
-				b.playersChangingBankersDirection.remove(player);
+				SqliteDB.newBanker(banker.bankName, banker.getLocation());
+				player.sendMessage(ChatColor.BLUE + "[GlobalBank2]"
+						+ ChatColor.WHITE
+						+ " Banker is looking towards you.");
+				b.playersChangingBankersDirection.remove(player.getName());
 			}
 			event.setCancelled(true);
 		}

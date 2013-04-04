@@ -19,12 +19,9 @@ package net.ark3l.globalbank2.banker.entity;
    */
 
 import net.ark3l.globalbank2.banker.nms.NPCEntity;
-import net.minecraft.server.v1_5_R2.Entity;
-import net.minecraft.server.v1_5_R2.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_5_R2.CraftServer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
@@ -34,9 +31,9 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 public class Banker {
 
 	public final String bankName;
-	private final Entity entity;
+	private final NPCEntity entity;
 
-	public Banker(Entity entity, String bankName) {
+	public Banker(NPCEntity entity, String bankName) {
 		this.entity = entity;
 		this.bankName = bankName;
 		setItemInHand(Material.PAPER, (short) 0);
@@ -61,7 +58,7 @@ public class Banker {
 		((HumanEntity) getEntity().getBukkitEntity()).setItemInHand(new ItemStack(m, 1, damage));
 	}
 
-	public Entity getEntity() {
+	public NPCEntity getEntity() {
 		return entity;
 	}
 
@@ -75,6 +72,10 @@ public class Banker {
 
 	public org.bukkit.entity.Entity getBukkitEntity() {
 		return entity.getBukkitEntity();
+	}
+	
+	public Location getLocation() {
+		return entity.getLocation();
 	}
 
 	@Override
@@ -98,7 +99,6 @@ public class Banker {
 	}
 
 	public void setYaw(float yaw) {
-		getEntity().yaw = yaw;
-		((EntityPlayer)getEntity()).az = yaw;
+		getEntity().setYaw(yaw);
 	}
 }

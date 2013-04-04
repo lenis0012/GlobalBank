@@ -34,6 +34,7 @@ public class Bankventory implements Serializable {
 	public Bankventory() {
 	}
 
+	@SuppressWarnings("deprecation")
 	public ItemStack[] getItemStacksFromSlot(int slot) {
 		if (slots.containsKey(slot)) {
 			ItemStack[] itemRet = new ItemStack[52];
