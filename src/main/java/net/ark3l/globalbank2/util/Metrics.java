@@ -345,7 +345,7 @@ public class Metrics {
         File pluginsFolder = plugin.getDataFolder().getParentFile();
 
         // return => base/plugins/PluginMetrics/config.yml
-        return new File(new File(pluginsFolder, "PluginMetrics"), "config.yml");
+        return new File(new File(pluginsFolder, "PluginMetrics"), "src/main/resources/config.yml");
     }
 
     /**

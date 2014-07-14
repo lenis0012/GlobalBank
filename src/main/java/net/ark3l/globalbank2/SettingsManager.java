@@ -40,7 +40,7 @@ public class SettingsManager {
 	public void loadSettings() {
 		File f = new File(m.getDataFolder() + "/Config.yml");
 		this.y = YamlConfiguration.loadConfiguration(f);
-		y.addDefaults(YamlConfiguration.loadConfiguration(m.getResource("config.yml")));
+		y.addDefaults(YamlConfiguration.loadConfiguration(m.getResource("src/main/resources/config.yml")));
 		y.options().copyDefaults(true);
 		try {
 			y.save(f);
