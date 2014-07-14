@@ -17,6 +17,15 @@ public class BConfig extends YamlConfiguration {
 
     public BConfig(File file) {
         this.file = file;
+
+        try {
+            if(!file.exists()) {
+                file.createNewFile();
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
         reload();
     }
 
