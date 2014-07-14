@@ -33,10 +33,12 @@ public class BankerManager {
     }
 
     private void loadAllBankers() {
-        for(String sectionKey : config.getConfigurationSection("bankers").getKeys(false)) {
-            ConfigurationSection section = config.getConfigurationSection("bankers." + sectionKey);
-            Banker banker = Banker.loadFromConfig(npcFactory, section);
-            bankers.put(banker.getName(), banker);
+        if(config.contains("bankers")) {
+            for (String sectionKey : config.getConfigurationSection("bankers").getKeys(false)) {
+                ConfigurationSection section = config.getConfigurationSection("bankers." + sectionKey);
+                Banker banker = Banker.loadFromConfig(npcFactory, section);
+                bankers.put(banker.getName(), banker);
+            }
         }
     }
 
