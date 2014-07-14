@@ -1,5 +1,5 @@
 settings:
-  # Skin that all banker NPC's use
+  # Skin that all banker NPC's use, currently not working for some reason.
   banker-skin: BritishBankers
 
   # Nametag that all bankers use, can not be longer than 16 chars.

@@ -44,17 +44,19 @@ public class Banker {
         BankPlugin plugin = JavaPlugin.getPlugin(BankPlugin.class);
         FileConfiguration config = plugin.getConfig();
         String tag = config.getString("settings.banker-nametag");
-        String skin = config.getString("settings.banker-skin");
+//        String skin = config.getString("settings.banker-skin");
 
         String name = section.getName();
-        World world = Bukkit.getWorld(section.getName());
+        World world = Bukkit.getWorld(section.getString("world"));
         double x = section.getDouble("x");
         double y = section.getDouble("y");
         double z = section.getDouble("z");
         float yaw = (float) section.getDouble("yaw");
 
-        NPCProfile profile = new NPCProfile(tag, skin);
+//        NPCProfile profile = new NPCProfile(tag, skin);
+        NPCProfile profile = new NPCProfile(tag);
         NPC npc = npcFactory.spawnHumanNPC(new Location(world, x, y, z, yaw, 0F), profile);
+        npc.setEntityCollision(false);
         npc.setYaw(yaw);
 
         return new Banker(npc, name);

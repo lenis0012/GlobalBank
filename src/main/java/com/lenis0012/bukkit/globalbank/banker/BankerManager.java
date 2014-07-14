@@ -52,13 +52,15 @@ public class BankerManager {
     public Banker createBanker(String name, Location location) {
         FileConfiguration config = plugin.getConfig();
         String tag = config.getString("settings.banker-nametag");
-        String skin = config.getString("settings.banker-skin");
+//        String skin = config.getString("settings.banker-skin");
 
-        NPCProfile profile = new NPCProfile(tag, skin);
+//        NPCProfile profile = new NPCProfile(tag, skin);
+        NPCProfile profile = new NPCProfile(tag);
         NPC npc = npcFactory.spawnHumanNPC(location, profile);
         Banker banker = new Banker(npc, name);
         bankers.put(name, banker);
 
+        npc.setEntityCollision(false);
         npc.setYaw(location.getYaw());
         return banker;
     }
