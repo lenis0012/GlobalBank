@@ -1,10 +1,19 @@
-Economy:
-  CostPerSlot: 20
-  UseEconomy: true
-  ProgressiveSlotMultiplier: 2
-Slot:
-  BeginWith: 5
-Strings:
-  Open: "Welcome to"
-  Closed: "Have a great day!"
-  Noperm: "You do not have permission to use banks!"
+settings:
+  # Skin that all banker NPC's use
+  banker-skin: BritishBankers
+
+  # Nametag that all bankers use
+  banker-nametag: Banker
+
+  # Default banker slots given to all players
+  default-slots: 5
+
+  # Rows of items per bank/bank slot. 1 row has 9 item holders, 4 is a chest size.
+  bank-rows: 4
+  slot-rows: 4
+
+  # Economy settings, requires vault.
+  economy:
+    enabled: true
+    slot-cost: 20.0
+    progressive-multiplier: 2.0

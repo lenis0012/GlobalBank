@@ -9,6 +9,10 @@ public class BankPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        //Load config
+        saveDefaultConfig();
 
+        //Register command
+        getCommand("globalbank").setExecutor(new BankCommandExecutor());
     }
 }
