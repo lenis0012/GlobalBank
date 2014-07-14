@@ -1,5 +1,5 @@
 name: GlobalBank
-main: com.lenis0012.bukkit.globalbank
+main: com.lenis0012.bukkit.globalbank.BankPlugin
 description: Adds a unique item banking system to the game.
 authors: [lenis0012, horse2950, Samkio]
 dev-url: http://dev.bukkit.org/server-mods/globalbank/
