@@ -2,7 +2,7 @@ settings:
   # Skin that all banker NPC's use
   banker-skin: BritishBankers
 
-  # Nametag that all bankers use
+  # Nametag that all bankers use, can not be longer than 16 chars.
   banker-nametag: Banker
 
   # Default banker slots given to all players
