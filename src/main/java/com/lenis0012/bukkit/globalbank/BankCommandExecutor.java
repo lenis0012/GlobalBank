@@ -1,5 +1,6 @@
 package com.lenis0012.bukkit.globalbank;
 
+import com.lenis0012.bukkit.globalbank.banker.BankerManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,6 +12,11 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Created by Lenny on 14-7-2014.
  */
 public class BankCommandExecutor implements CommandExecutor {
+    private final BankerManager bankerManager;
+
+    public BankCommandExecutor(BankerManager bankerManager) {
+        this.bankerManager = bankerManager;
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -80,7 +86,7 @@ public class BankCommandExecutor implements CommandExecutor {
     public void create(Player player, String[] args) {
         if(check(player, "gb.create")) {
             if(check(player, args, 1)) {
-                //TODO: Create banker.
+                bankerManager.createBanker(args[1], player.getLocation());
                 reply(player, "&aCreated banker with bank named '%s'!", args[1]);
             }
         }
@@ -102,7 +108,8 @@ public class BankCommandExecutor implements CommandExecutor {
 
     public void save(Player player) {
         if(check(player, "gb.save")) {
-            //TODO: Save all bankers.
+            bankerManager.save();
+            //TODO: Save banks.
             reply(player, "&aAll bankers and banks have been saved.");
         }
     }
