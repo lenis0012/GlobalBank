@@ -72,10 +72,10 @@ public class BankListener implements Listener {
         final BPlayer bPlayer = BPlayer.get(player.getUniqueId());
         final Inventory inventory = event.getInventory();
         if(bPlayer.getStatus() == BPlayer.PlayerStatus.IN_BANK) {
-            final int slot = Integer.parseInt(item.getItemMeta().getDisplayName().substring("Slot ".length())) - 1;
             event.setCancelled(true);
             switch(item.getType()) {
                 case CHEST:
+                    final int slot = Integer.parseInt(item.getItemMeta().getDisplayName().substring("Slot ".length())) - 1;
                     player.closeInventory();
                     Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
                         @Override
@@ -86,15 +86,16 @@ public class BankListener implements Listener {
                     }, 2L);
                     break;
                 case PAPER:
+                    final int slotId = event.getRawSlot();
                     player.closeInventory();
                     Economy economy = plugin.getEconomy();
                     if(economy != null) {
-                        if(slot <= bPlayer.getOwnedSlots()) {
-                            double price = Simple.getSlotPrice(slot);
+                        if(slotId <= bPlayer.getOwnedSlots()) {
+                            double price = Simple.getSlotPrice(slotId);
                             if (economy.has(player, price)) {
                                 economy.withdrawPlayer(player, price);
                                 bPlayer.setOwnedSlots(bPlayer.getOwnedSlots() + 1);
-                                player.sendMessage(ChatColor.GREEN + "You have vought slot " + (slot + 1) + " for $" + price);
+                                player.sendMessage(ChatColor.GREEN + "You have vought slot " + (slotId + 1) + " for $" + price);
                             } else {
                                 player.sendMessage(ChatColor.RED + "You don't have enough money to afford a new slot.");
                             }
