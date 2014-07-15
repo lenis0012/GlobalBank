@@ -18,7 +18,7 @@ public class AlphabeticSort implements ISort {
         while(list.size() > 0) {
             Material highest = list.get(0);
             for (Material material : list) {
-                if(material.compareTo(highest) > 0) {
+                if(material.toString().compareTo(highest.toString()) < 0) {
                     highest = material;
                 }
             }
@@ -47,6 +47,8 @@ public class AlphabeticSort implements ISort {
                         index += 1;
 
                         current = new ItemStack(mat, it.getAmount() - remaining);
+                    } else {
+                        current.setAmount(current.getAmount() + it.getAmount());
                     }
                 }
             }

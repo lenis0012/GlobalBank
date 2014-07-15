@@ -19,7 +19,7 @@ public enum Sort {
     }
 
     /**
-     * Sort an awaay of items
+     * Sort an array of items
      *
      * @param contents Items
      * @return sorted Itens.
