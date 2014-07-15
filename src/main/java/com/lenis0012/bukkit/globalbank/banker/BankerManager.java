@@ -86,6 +86,16 @@ public class BankerManager {
         return bankers.get(name);
     }
 
+    public Banker getBanker(NPC npc) {
+        for(Banker banker : bankers.values()) {
+            if(banker.getNpc().equals(npc)) {
+                return banker;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Get a collection of all bankers
      *
