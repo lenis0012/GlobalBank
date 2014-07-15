@@ -12,6 +12,9 @@ settings:
   bank-rows: 4
   slot-rows: 4
 
+  # Sort type used to sort items in bank slot, available: ALPHABETIC
+  sorting: ALPHABETIC
+
   # Economy settings, requires vault.
   economy:
     enabled: true

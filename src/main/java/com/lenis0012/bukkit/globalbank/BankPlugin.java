@@ -2,6 +2,7 @@ package com.lenis0012.bukkit.globalbank;
 
 import com.lenis0012.bukkit.globalbank.banker.Banker;
 import com.lenis0012.bukkit.globalbank.banker.BankerManager;
+import com.lenis0012.bukkit.globalbank.util.sorting.Sort;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -9,11 +10,15 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class BankPlugin extends JavaPlugin {
     private BankerManager bankerManager;
+    private Sort sort;
 
     @Override
     public void onEnable() {
         //Load config
         saveDefaultConfig();
+
+        //Load sort
+        this.sort = Sort.valueOf(getConfig().getString("settings.sorting").toUpperCase());
 
         //Load bankers
         this.bankerManager = new BankerManager(this);
@@ -35,5 +40,9 @@ public class BankPlugin extends JavaPlugin {
 
     public BankerManager getBankerManager() {
         return bankerManager;
+    }
+
+    public Sort getSort() {
+        return sort;
     }
 }
