@@ -30,14 +30,16 @@ public class BankPlugin extends JavaPlugin {
         this.bankerManager = new BankerManager(this);
 
         //Vault
-        if(pm.isPluginEnabled("Vault")) {
-            if(setupEconomy()) {
-                getLogger().info("Hooked with " + economy.getName() + " using Vault.");
+        if(getConfig().getBoolean("settings.economy.enabled")) {
+            if (pm.isPluginEnabled("Vault")) {
+                if (setupEconomy()) {
+                    getLogger().info("Hooked with " + economy.getName() + " using Vault.");
+                } else {
+                    getLogger().warning("Vault was found, but no economy plugins are registered.");
+                }
             } else {
-                getLogger().warning("Vault was found, but no economy plugins are registered.");
+                getLogger().info("Vault was not found, economy support will be disabled.");
             }
-        } else {
-            getLogger().info("Vault was not found, economy support will be disabled.");
         }
 
         //Register command & listeners

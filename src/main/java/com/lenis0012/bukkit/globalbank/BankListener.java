@@ -95,7 +95,7 @@ public class BankListener implements Listener {
                             if (economy.has(player, price)) {
                                 economy.withdrawPlayer(player, price);
                                 bPlayer.setOwnedSlots(bPlayer.getOwnedSlots() + 1);
-                                player.sendMessage(ChatColor.GREEN + "You have vought slot " + (slotId + 1) + " for $" + price);
+                                player.sendMessage(ChatColor.GREEN + "You have bought slot " + (slotId + 1) + " for $" + price);
                             } else {
                                 player.sendMessage(ChatColor.RED + "You don't have enough money to afford a new slot.");
                             }
@@ -103,7 +103,7 @@ public class BankListener implements Listener {
                             player.sendMessage(ChatColor.RED + "You need to unlock slot " + (bPlayer.getOwnedSlots() + 1) + " first.");
                         }
                     } else {
-                        player.sendMessage(ChatColor.RED + "You are not able tp purchase bank slots in this server.");
+                        player.sendMessage(ChatColor.RED + "You are not able to purchase bank slots in this server.");
                     }
                 default:
                     break;
