@@ -48,7 +48,7 @@ public class BankListener implements Listener {
         final Inventory inventory = event.getInventory();
         BPlayer bPlayer = BPlayer.get(player.getUniqueId());
         if(bPlayer.getStatus() == BPlayer.PlayerStatus.IN_SLOT) {
-            int slot = Integer.parseInt(inventory.getTitle().substring("Slot ".length()));
+            int slot = Integer.parseInt(inventory.getTitle().substring("Slot ".length())) - 1;
             bPlayer.closeSlot(event.getInventory(), slot);
         }
     }

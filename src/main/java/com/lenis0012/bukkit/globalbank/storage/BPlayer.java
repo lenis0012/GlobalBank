@@ -45,9 +45,9 @@ public class BPlayer {
         ItemStack[] contents = new ItemStack[bankRows];
         for(int i = 0; i < contents.length; i++) {
             if(i < ownedSlots) {
-                contents[i] = Simple.item(Material.CHEST, 1, "Slot " + i);
+                contents[i] = Simple.item(Material.CHEST, 1, "Slot " + (i + 1));
             } else {
-                contents[i] = Simple.item(Material.IRON_BARDING, 1, "Purchase slot");
+                contents[i] = Simple.item(Material.PAPER, 1, "Purchase slot");
             }
         }
 
@@ -65,7 +65,7 @@ public class BPlayer {
             contents[i + 2] = banks[id][i];
         }
 
-        Inventory inventory = Bukkit.createInventory(player, slotRows + 2, "Slot " + id);
+        Inventory inventory = Bukkit.createInventory(player, slotRows + 2, "Slot " + (id + 1));
         inventory.setContents(contents);
         player.openInventory(inventory);
         return inventory;
