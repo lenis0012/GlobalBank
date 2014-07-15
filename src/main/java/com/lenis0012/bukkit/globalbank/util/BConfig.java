@@ -17,6 +17,7 @@ public class BConfig extends YamlConfiguration {
         this.file = file;
 
         try {
+            file.getParentFile().mkdirs();
             if(!file.exists()) {
                 file.createNewFile();
             }
