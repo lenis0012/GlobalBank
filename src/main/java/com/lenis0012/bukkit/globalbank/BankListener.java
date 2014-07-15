@@ -2,9 +2,11 @@ package com.lenis0012.bukkit.globalbank;
 
 import com.lenis0012.bukkit.globalbank.banker.Banker;
 import com.lenis0012.bukkit.globalbank.storage.BPlayer;
+import com.lenis0012.bukkit.globalbank.util.Simple;
 import com.lenis0012.bukkit.npc.NPC;
 import com.lenis0012.bukkit.npc.NPCFactory;
 import com.lenis0012.bukkit.npc.NPCInteractEvent;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -70,10 +72,10 @@ public class BankListener implements Listener {
         final BPlayer bPlayer = BPlayer.get(player.getUniqueId());
         final Inventory inventory = event.getInventory();
         if(bPlayer.getStatus() == BPlayer.PlayerStatus.IN_BANK) {
+            final int slot = Integer.parseInt(item.getItemMeta().getDisplayName().substring("Slot ".length())) - 1;
             event.setCancelled(true);
             switch(item.getType()) {
                 case CHEST:
-                    final int slot = Integer.parseInt(item.getItemMeta().getDisplayName().substring("Slot ".length())) - 1;
                     player.closeInventory();
                     Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
                         @Override
@@ -83,6 +85,25 @@ public class BankListener implements Listener {
                         }
                     }, 2L);
                     break;
+                case PAPER:
+                    player.closeInventory();
+                    Economy economy = plugin.getEconomy();
+                    if(economy != null) {
+                        if(slot <= bPlayer.getOwnedSlots()) {
+                            double price = Simple.getSlotPrice(slot);
+                            if (economy.has(player, price)) {
+                                economy.withdrawPlayer(player, price);
+                                bPlayer.setOwnedSlots(bPlayer.getOwnedSlots() + 1);
+                                player.sendMessage(ChatColor.GREEN + "You have vought slot " + (slot + 1) + " for $" + price);
+                            } else {
+                                player.sendMessage(ChatColor.RED + "You don't have enough money to afford a new slot.");
+                            }
+                        } else {
+                            player.sendMessage(ChatColor.RED + "You need to unlock slot " + (bPlayer.getOwnedSlots() + 1) + " first.");
+                        }
+                    } else {
+                        player.sendMessage(ChatColor.RED + "You are not able tp purchase bank slots in this server.");
+                    }
                 default:
                     break;
             }

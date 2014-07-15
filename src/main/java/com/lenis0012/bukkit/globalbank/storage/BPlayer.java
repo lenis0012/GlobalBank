@@ -4,6 +4,7 @@ import com.lenis0012.bukkit.globalbank.BankPlugin;
 import com.lenis0012.bukkit.globalbank.util.BConfig;
 import com.lenis0012.bukkit.globalbank.util.Simple;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -30,7 +31,6 @@ public class BPlayer {
     public BPlayer(UUID uuid) {
         BankPlugin plugin = JavaPlugin.getPlugin(BankPlugin.class);
         File dir = new File(plugin.getDataFolder(), "storage");
-        dir.mkdirs();
 
         this.config = new BConfig(new File(dir, uuid.toString() + ".yml"));
         this.bankRows = plugin.getConfig().getInt("settings.bank-rows") * 9;
@@ -47,7 +47,7 @@ public class BPlayer {
             if(i < ownedSlots) {
                 contents[i] = Simple.item(Material.CHEST, 1, "Slot " + (i + 1));
             } else {
-                contents[i] = Simple.item(Material.PAPER, 1, "Purchase slot");
+                contents[i] = Simple.item(Material.PAPER, 1, "Purchase slot", "Price: " + ChatColor.GRAY + Simple.getSlotPrice(i));
             }
         }
 
@@ -99,6 +99,14 @@ public class BPlayer {
 
     public void setStatus(PlayerStatus status) {
         this.status = status;
+    }
+
+    public int getOwnedSlots() {
+        return ownedSlots;
+    }
+
+    public void setOwnedSlots(int ownedSlots) {
+        this.ownedSlots = ownedSlots;
     }
 
     public void save() {

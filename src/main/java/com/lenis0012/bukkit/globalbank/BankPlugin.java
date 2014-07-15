@@ -3,7 +3,9 @@ package com.lenis0012.bukkit.globalbank;
 import com.lenis0012.bukkit.globalbank.banker.Banker;
 import com.lenis0012.bukkit.globalbank.banker.BankerManager;
 import com.lenis0012.bukkit.globalbank.util.sorting.Sort;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -11,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class BankPlugin extends JavaPlugin {
     private BankerManager bankerManager;
+    private Economy economy;
     private Sort sort;
 
     @Override
@@ -25,6 +28,17 @@ public class BankPlugin extends JavaPlugin {
 
         //Load bankers
         this.bankerManager = new BankerManager(this);
+
+        //Vault
+        if(pm.isPluginEnabled("Vault")) {
+            if(setupEconomy()) {
+                getLogger().info("Hooked with " + economy.getName() + " using Vault.");
+            } else {
+                getLogger().warning("Vault was found, but no economy plugins are registered.");
+            }
+        } else {
+            getLogger().info("Vault was not found, economy support will be disabled.");
+        }
 
         //Register command & listeners
         pm.registerEvents(new BankListener(this), this);
@@ -48,5 +62,18 @@ public class BankPlugin extends JavaPlugin {
 
     public Sort getSort() {
         return sort;
+    }
+
+    public Economy getEconomy() {
+        return economy;
+    }
+
+    private boolean setupEconomy() {
+        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        if (economyProvider != null) {
+            this.economy = economyProvider.getProvider();
+        }
+
+        return (economy != null);
     }
 }
