@@ -2,11 +2,17 @@ package com.lenis0012.bukkit.globalbank.storage;
 
 import com.lenis0012.bukkit.globalbank.BankPlugin;
 import com.lenis0012.bukkit.globalbank.util.BConfig;
+import com.lenis0012.bukkit.globalbank.util.Simple;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -19,6 +25,7 @@ public class BPlayer {
     private final int bankRows, slotRows;
     private ItemStack[][] banks;
     private PlayerStatus status;
+    private int ownedSlots;
 
     public BPlayer(UUID uuid) {
         BankPlugin plugin = JavaPlugin.getPlugin(BankPlugin.class);
@@ -28,8 +35,45 @@ public class BPlayer {
         this.config = new BConfig(new File(dir, uuid.toString() + ".yml"));
         this.bankRows = plugin.getConfig().getInt("settings.bank-rows") * 9;
         this.slotRows = plugin.getConfig().getInt("settings.slot-rows") * 9 - 2;
+        this.ownedSlots = config.getInt("owned-slots", plugin.getConfig().getInt("settings.default-slots"));
         this.status = PlayerStatus.NONE;
         this.banks = new ItemStack[bankRows][slotRows];
+        load();
+    }
+
+    public Inventory openBank(Player player) {
+        ItemStack[] contents = new ItemStack[bankRows];
+        for(int i = 0; i < contents.length; i++) {
+            if(i < ownedSlots) {
+                contents[i] = Simple.item(Material.CHEST, 1, "Slot " + i);
+            } else {
+                contents[i] = Simple.item(Material.IRON_BARDING, 1, "Purchase slot");
+            }
+        }
+
+        Inventory inventory = Bukkit.createInventory(player, bankRows, "Your bank");
+        inventory.setContents(contents);
+        return inventory;
+    }
+
+    public Inventory openSlot(Player player, int id) {
+        ItemStack[] contents = new ItemStack[slotRows + 2];
+        contents[0] = Simple.item(Material.CHEST, 1, "Back to bank");
+        contents[1] = Simple.item(Material.PAPER, 1, "Sort items");
+        for(int i = 0; i < slotRows; i++) {
+            contents[i + 2] = banks[id][i];
+        }
+
+        Inventory inventory = Bukkit.createInventory(player, slotRows + 2, "Slot " + id);
+        inventory.setContents(contents);
+
+        return inventory;
+    }
+
+    public void closeSlot(Inventory inventory, int slot) {
+        for(int i = 0; i < slotRows; i++) {
+            banks[slot][i] = inventory.getItem(i + 2);
+        }
     }
 
     private void load() {
@@ -48,6 +92,14 @@ public class BPlayer {
         }
     }
 
+    public PlayerStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PlayerStatus status) {
+        this.status = status;
+    }
+
     public void save() {
         for(int i = 0; i < bankRows; i++) {
             for(int j = 0; j < slotRows; j++) {
@@ -58,6 +110,7 @@ public class BPlayer {
             }
         }
 
+        config.set("ownedSlots", ownedSlots);
         config.save();
     }
 
@@ -80,10 +133,15 @@ public class BPlayer {
         }
     }
 
+    public static Collection<BPlayer> all() {
+        return players.values();
+    }
+
     public static enum PlayerStatus {
         NONE,
         DELETE,
         FACE,
-        IN_BANK;
+        IN_BANK,
+        IN_SLOT;
     }
 }
