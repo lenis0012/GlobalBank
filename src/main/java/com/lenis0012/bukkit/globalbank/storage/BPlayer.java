@@ -102,13 +102,24 @@ public class BPlayer {
     }
 
     public void save() {
+        int bankEntries = 0;
         for(int i = 0; i < bankRows; i++) {
+            int slotEntries = 0;
             for(int j = 0; j < slotRows; j++) {
                 ItemStack item = banks[i][j];
+                config.set("banks." + i + "." + j, item);
                 if(item != null) {
-                    config.set("banks." + i + "." + j, item);
+                    slotEntries += 1;
                 }
             }
+            
+            if(slotEntries == 0) {
+                config.set("banks." + i, null);
+            } else {
+                bankEntries += 1;
+            }
+        } if(bankEntries == 0) {
+            config.set("banks", null);
         }
 
         config.set("ownedSlots", ownedSlots);

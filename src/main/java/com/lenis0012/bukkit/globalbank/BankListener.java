@@ -60,6 +60,7 @@ public class BankListener implements Listener {
                         @Override
                         public void run() {
                             bPlayer.openSlot(player, slot);
+                            bPlayer.setStatus(BPlayer.PlayerStatus.IN_SLOT);
                         }
                     }, 2L);
                     break;
