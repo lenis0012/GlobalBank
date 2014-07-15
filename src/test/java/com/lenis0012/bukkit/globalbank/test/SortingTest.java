@@ -27,4 +27,15 @@ public class SortingTest {
             Assert.assertTrue(items[1].getType() == Material.LEATHER);
         }
     }
+
+    @Test
+    public void testStackedSorting() {
+        ItemStack[] items = new ItemStack[] {
+                new ItemStack(Material.STONE, 20),
+                new ItemStack(Material.STONE, 50)
+        };
+        items = Sort.ALPHABETIC.sort(items);
+        Assert.assertTrue(items[0].getAmount() == 64);
+        Assert.assertTrue(items[1].getAmount() == 6);
+    }
 }
