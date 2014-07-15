@@ -41,8 +41,24 @@ public class BankListener implements Listener {
             Banker banker = plugin.getBankerManager().getBanker(npc);
             if (banker != null) {
                 BPlayer bPlayer = BPlayer.get(player.getUniqueId());
-                bPlayer.openBank(player);
-                bPlayer.setStatus(BPlayer.PlayerStatus.IN_BANK);
+                switch(bPlayer.getStatus()) {
+                    case NONE:
+                        bPlayer.openBank(player);
+                        bPlayer.setStatus(BPlayer.PlayerStatus.IN_BANK);
+                        break;
+                    case DELETE:
+                        plugin.getBankerManager().deleteBanker(banker);
+                        bPlayer.setStatus(BPlayer.PlayerStatus.NONE);
+                        player.sendMessage(ChatColor.GREEN + "Banker " + banker.getName() + " has been deleted.");
+                        break;
+                    case FACE:
+                        banker.getNpc().lookAt(player.getEyeLocation());
+                        bPlayer.setStatus(BPlayer.PlayerStatus.NONE);
+                        player.sendMessage(ChatColor.GREEN + "Banker " + banker.getName() + " now faces at your location.");
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

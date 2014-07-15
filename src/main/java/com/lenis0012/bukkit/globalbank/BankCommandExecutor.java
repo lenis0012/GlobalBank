@@ -1,6 +1,7 @@
 package com.lenis0012.bukkit.globalbank;
 
 import com.lenis0012.bukkit.globalbank.banker.BankerManager;
+import com.lenis0012.bukkit.globalbank.storage.BPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -86,22 +87,26 @@ public class BankCommandExecutor implements CommandExecutor {
     public void create(Player player, String[] args) {
         if(check(player, "gb.create")) {
             if(check(player, args, 1)) {
-                bankerManager.createBanker(args[1], player.getLocation());
-                reply(player, "&aCreated banker with bank named '%s'!", args[1]);
+                if(bankerManager.getBanker(args[1]) == null) {
+                    bankerManager.createBanker(args[1], player.getLocation());
+                    reply(player, "&aCreated banker with bank named '%s'!", args[1]);
+                } else {
+                    reply(player, "&cA banker with that name already exists.");
+                }
             }
         }
     }
 
     public void delete(Player player) {
         if(check(player, "gb.delete")) {
-            //TODO: Delete banker.
+            BPlayer.get(player.getUniqueId()).setStatus(BPlayer.PlayerStatus.DELETE);
             reply(player, "&aRight click the banker you want to delete.");
         }
     }
 
     public void face(Player player) {
         if(check(player, "gb.face")) {
-            //TODO: Face banker.
+            BPlayer.get(player.getUniqueId()).setStatus(BPlayer.PlayerStatus.FACE);
             reply(player, "&aRight click the banker that needs to look at you.");
         }
     }
@@ -109,7 +114,10 @@ public class BankCommandExecutor implements CommandExecutor {
     public void save(Player player) {
         if(check(player, "gb.save")) {
             bankerManager.save();
-            //TODO: Save banks.
+            for(BPlayer bPlayer : BPlayer.all()) {
+                bPlayer.save();
+            }
+
             reply(player, "&aAll bankers and banks have been saved.");
         }
     }

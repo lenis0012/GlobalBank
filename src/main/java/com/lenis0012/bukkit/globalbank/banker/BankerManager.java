@@ -65,6 +65,11 @@ public class BankerManager {
         return banker;
     }
 
+    public void deleteBanker(Banker banker) {
+        banker.getNpc().getBukkitEntity().remove();
+        bankers.remove(banker.getName());
+    }
+
     /**
      * Save all bankers
      */
