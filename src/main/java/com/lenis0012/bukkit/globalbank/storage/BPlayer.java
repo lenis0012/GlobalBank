@@ -53,6 +53,7 @@ public class BPlayer {
 
         Inventory inventory = Bukkit.createInventory(player, bankRows, "Your bank");
         inventory.setContents(contents);
+        player.openInventory(inventory);
         return inventory;
     }
 
@@ -66,7 +67,7 @@ public class BPlayer {
 
         Inventory inventory = Bukkit.createInventory(player, slotRows + 2, "Slot " + id);
         inventory.setContents(contents);
-
+        player.openInventory(inventory);
         return inventory;
     }
 

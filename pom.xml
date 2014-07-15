@@ -31,7 +31,7 @@
 		<dependency>
 		  <groupId>com.lenis0012.bukkit</groupId>
 		  <artifactId>NPCFactory</artifactId>
-		  <version>1.3</version> <!-- Use LATEST for latest dev build -->
+		  <version>1.4-SNAPSHOT</version> <!-- Use LATEST for latest dev build -->
 		  <scope>compile</scope>
 		</dependency>
 		<dependency>
