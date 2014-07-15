@@ -3,6 +3,7 @@ package com.lenis0012.bukkit.globalbank;
 import com.lenis0012.bukkit.globalbank.banker.Banker;
 import com.lenis0012.bukkit.globalbank.banker.BankerManager;
 import com.lenis0012.bukkit.globalbank.util.sorting.Sort;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -14,6 +15,8 @@ public class BankPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        PluginManager pm = getServer().getPluginManager();
+
         //Load config
         saveDefaultConfig();
 
@@ -23,7 +26,8 @@ public class BankPlugin extends JavaPlugin {
         //Load bankers
         this.bankerManager = new BankerManager(this);
 
-        //Register command
+        //Register command & listeners
+        pm.registerEvents(new BankListener(this), this);
         getCommand("globalbank").setExecutor(new BankCommandExecutor(bankerManager));
     }
 
