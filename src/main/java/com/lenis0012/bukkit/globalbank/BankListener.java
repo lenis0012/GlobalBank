@@ -3,12 +3,16 @@ package com.lenis0012.bukkit.globalbank;
 import com.lenis0012.bukkit.globalbank.banker.Banker;
 import com.lenis0012.bukkit.globalbank.storage.BPlayer;
 import com.lenis0012.bukkit.npc.NPC;
+import com.lenis0012.bukkit.npc.NPCFactory;
 import com.lenis0012.bukkit.npc.NPCInteractEvent;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 
@@ -23,15 +27,18 @@ public class BankListener implements Listener {
     }
 
     @EventHandler
-    public void onNPCInteract(NPCInteractEvent event) {
-        final NPC npc = event.getNpc();
-        final HumanEntity human = event.getEntity();
-        Player player = (Player) human;
-        Banker banker = plugin.getBankerManager().getBanker(npc);
-        if(banker != null) {
-            BPlayer bPlayer = BPlayer.get(player.getUniqueId());
-            bPlayer.openBank(player);
-            bPlayer.setStatus(BPlayer.PlayerStatus.IN_BANK);
+    public void onNPCInteract(PlayerInteractEntityEvent event) {
+        final Player player = event.getPlayer();
+        final Entity entity =  event.getRightClicked();
+        final NPCFactory npcFactory = plugin.getBankerManager().getNPCFactory();
+        if(npcFactory.isNPC(entity)) {
+            NPC npc = npcFactory.getNPC(entity);
+            Banker banker = plugin.getBankerManager().getBanker(npc);
+            if (banker != null) {
+                BPlayer bPlayer = BPlayer.get(player.getUniqueId());
+                bPlayer.openBank(player);
+                bPlayer.setStatus(BPlayer.PlayerStatus.IN_BANK);
+            }
         }
     }
 

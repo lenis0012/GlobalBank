@@ -104,4 +104,8 @@ public class BankerManager {
     public Collection<Banker> getBankers() {
         return bankers.values();
     }
+
+    public NPCFactory getNPCFactory() {
+        return npcFactory;
+    }
 }
