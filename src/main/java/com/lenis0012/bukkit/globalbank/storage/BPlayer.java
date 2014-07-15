@@ -112,7 +112,7 @@ public class BPlayer {
                     slotEntries += 1;
                 }
             }
-            
+
             if(slotEntries == 0) {
                 config.set("banks." + i, null);
             } else {

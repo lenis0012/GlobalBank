@@ -1,5 +1,6 @@
 package com.lenis0012.bukkit.globalbank.util;
 
+import com.lenis0012.bukkit.globalbank.BankPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

@@ -6,6 +6,8 @@ import com.lenis0012.bukkit.npc.NPC;
 import com.lenis0012.bukkit.npc.NPCFactory;
 import com.lenis0012.bukkit.npc.NPCInteractEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -50,6 +52,7 @@ public class BankListener implements Listener {
         final Player player = (Player) event.getWhoClicked();
         final ItemStack item = event.getCurrentItem();
         final BPlayer bPlayer = BPlayer.get(player.getUniqueId());
+        final Inventory inventory = event.getInventory();
         if(bPlayer.getStatus() == BPlayer.PlayerStatus.IN_BANK) {
             event.setCancelled(true);
             switch(item.getType()) {
@@ -66,6 +69,32 @@ public class BankListener implements Listener {
                     break;
                 default:
                     break;
+            }
+        } else if(bPlayer.getStatus() == BPlayer.PlayerStatus.IN_SLOT) {
+            if(item.getType() == Material.PAPER && item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("Sort items")) {
+                event.setCancelled(true);
+                ItemStack[] items = new ItemStack[inventory.getSize() - 2];
+                for(int i = 0; i < items.length; i++) {
+                    items[i] = inventory.getItem(i + 2);
+                }
+
+                items = plugin.getSort().sort(items);
+                for(int i = 0; i < items.length; i++) {
+                    inventory.setItem(i + 2, items[i]);
+                }
+
+                player.updateInventory();
+                player.sendMessage(ChatColor.GREEN + "Your bank slot has been sorted.");
+            } else if(item.getType() == Material.CHEST && item.hasItemMeta() && item.getItemMeta().hasDisplayName() && item.getItemMeta().getDisplayName().equals("Back to bank")) {
+                player.closeInventory();
+                Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+
+                    @Override
+                    public void run() {
+                        bPlayer.openBank(player);
+                        bPlayer.setStatus(BPlayer.PlayerStatus.IN_BANK);
+                    }
+                }, 2L);
             }
         }
     }
