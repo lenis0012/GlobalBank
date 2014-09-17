@@ -58,7 +58,7 @@ public class Banker {
         NPC npc = npcFactory.spawnHumanNPC(new Location(world, x, y, z, yaw, 0F), profile);
         npc.setEntityCollision(false);
         npc.setYaw(yaw);
-        npc.setInvulnerable(false);
+        npc.setGodmode(true);
         npc.setGravity(true);
 
         return new Banker(npc, name);
