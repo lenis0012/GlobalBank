@@ -35,13 +35,15 @@
 		<dependency>
 		  <groupId>com.lenis0012.bukkit</groupId>
 		  <artifactId>NPCFactory</artifactId>
-		  <version>1.4-SNAPSHOT</version> <!-- Use LATEST for latest dev build -->
+		  <version>1.5-SNAPSHOT</version> <!-- Use LATEST for latest dev build -->
 		  <scope>compile</scope>
 		</dependency>
+		<!-- As CraftBukkit is no longer available for download, you have to provide
+		the file by yourself (Local repo, private repo, system path, ...). -->
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
-			<version>1.7.9-R0.2-SNAPSHOT</version>
+			<version>1.7.10-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
         <dependency>
